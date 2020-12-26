@@ -2,7 +2,8 @@
 
 This module can be used to merge two YAML files. The goal was to allow merging
 of certain configurations without the need of an external program such as `yq`
-to do the merging.
+to do the merging. The initial use-case for building this was to take a "base" 
+cloud-init and allow adding additional config when constructing VM instances.
 
 ## Compatibility
 

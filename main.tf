@@ -3,19 +3,21 @@ terraform {
 }
 
 variable "input" {
-  type = list(string)
+  description = "A list containing exactly two YAML strings to be merged."
+  type        = list(string)
 }
 
 variable "dedupe" {
-  type    = bool
-  default = false
+  description = "Deduplicate values in resulting merged lists."
+  type        = bool
+  default     = false
 }
 
 locals {
   alpha      = yamldecode(var.input[0])
   beta       = yamldecode(var.input[1])
-  alphakeys  = [ for key, val in local.alpha : key ]
-  betakeys   = [ for key, val in local.beta : key ]
+  alphakeys  = [for key, val in local.alpha : key]
+  betakeys   = [for key, val in local.beta : key]
   commonkeys = setintersection(local.alphakeys, local.betakeys)
   merged = merge(local.alpha, local.beta,
     {
